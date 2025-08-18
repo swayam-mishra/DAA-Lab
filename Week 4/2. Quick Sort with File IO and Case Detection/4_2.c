@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h> // for access()
 
 #define MAX 1000
 
@@ -46,6 +47,19 @@ void quickSort(int arr[], int low, int high) {
         quickSort(arr, low, p - 1);
         quickSort(arr, p + 1, high);
     }
+}
+
+// Create file with sample data
+void createSampleFile(const char *filename, int arr[], int n) {
+    FILE *file = fopen(filename, "w");
+    if (!file) {
+        printf("Error: Cannot create file %s\n", filename);
+        return;
+    }
+    for (int i = 0; i < n; i++)
+        fprintf(file, "%d ", arr[i]);
+    fclose(file);
+    printf("File '%s' created with sample data.\n", filename);
 }
 
 // Read array from file
@@ -100,18 +114,26 @@ int main() {
         printf("Enter option: ");
         scanf("%d", &choice);
 
+        int sample[10] = {0}; // will fill according to choice
+
         switch (choice) {
             case 1:
                 strcpy(inFile, "inAsce.dat");
                 strcpy(outFile, "outQuickAsce.dat");
+                for (int i = 0; i < 10; i++) sample[i] = i + 1;
                 break;
             case 2:
                 strcpy(inFile, "inDesc.dat");
                 strcpy(outFile, "outQuickDesc.dat");
+                for (int i = 0; i < 10; i++) sample[i] = 10 - i;
                 break;
             case 3:
                 strcpy(inFile, "inRand.dat");
                 strcpy(outFile, "outQuickRand.dat");
+                {
+                    int temp[10] = {7, 2, 9, 1, 6, 8, 3, 4, 10, 5};
+                    memcpy(sample, temp, sizeof(temp));
+                }
                 break;
             case 4:
                 printf("Exiting program.\n");
@@ -119,6 +141,11 @@ int main() {
             default:
                 printf("Invalid choice.\n");
                 continue;
+        }
+
+        // If file doesn't exist, create it with sample data
+        if (access(inFile, F_OK) != 0) {
+            createSampleFile(inFile, sample, 10);
         }
 
         n = readFromFile(inFile, arr);
