@@ -2,20 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Define the person struct
 struct person {
     int id;
     char* name;
     int age;
     int height;
-    int weight; // stored in pounds
+    int weight;
 };
 
-// Global variables
-struct person* people = NULL; // Dynamically allocated array of persons
-int n = 0; // Number of people
+struct person* people = NULL; 
+int n = 0;
 
-// --- Utility Functions ---
 void swap(struct person* a, struct person* b) {
     struct person temp = *a;
     *a = *b;
@@ -33,7 +30,6 @@ void free_memory() {
     }
 }
 
-// --- Min-Heap Functions (based on Age) ---
 void min_heapify(int i, int size) {
     int smallest = i;
     int left = 2 * i + 1;

@@ -11,7 +11,7 @@ struct person{
 Write a menu driven program to read the data of 'n' students from a file and store them in a dynamically allocated array of struct person. Implement a min-heap or max-heap and its operations based on the menu options
 
 **Sample IP/OP** :
-MAIN MENUE (HEAP)
+MAIN MENE (HEAP)
 1. Read Data
 2. Create Min Heap based on the age
 3. Create Max heap based on the weight
@@ -21,3 +21,7 @@ MAIN MENUE (HEAP)
 7. Exit
 
 Enter option: 
+
+
+****
+
